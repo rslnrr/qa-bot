@@ -1,10 +1,16 @@
 import asyncio
 import logging
+import os
 
 from aiogram import Bot, Dispatcher, Router
 from aiogram.types import Message
+from dotenv import load_dotenv
 
-from config import BOT_TOKEN
+load_dotenv()  # загружает переменные из .env
+
+BOT_TOKEN = os.getenv('BOT_TOKEN')
+if not BOT_TOKEN:
+    raise ValueError("BOT_TOKEN not found in .env file")
 from handlers.start import router as start_router
 from handlers.menu import router as menu_router
 from handlers.quiz import router as quiz_router, handle_open_answer
